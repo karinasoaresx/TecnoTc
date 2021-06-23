@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "Tecnotc-app",
+    "scheme" : "appname",
+    "slug": "Tecnotc-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/adaptive-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify" : true,
+          "data": [
+            {
+              "scheme": "http",
+              "host": "*.192.168.0.10:3333",
+              "pathPrefix": "/home"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

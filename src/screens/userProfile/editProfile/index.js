@@ -8,16 +8,19 @@ import {
   ButtonProfile,
   TextButton,
 } from "./styles";
+import ProfileImage from "../../../../assets/foto_perfil.png";
 import ButtonPurple from "../../../components/buttonPurple";
 import colors from "../../../styles/colors";
 import { getUser } from "../../../services/security";
 import { api } from "../../../services/api";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 function EditProfile() {
   const [userInfo, setUserInfo] = useState([]);
+  const [image, setImage] = useState(null);
 
   const [editProfile, setEditProfile] = useState({
     name: "",
@@ -68,21 +71,68 @@ function EditProfile() {
     }
   };
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(result)
+
+    let localUri = result.uri;
+    let fileName = localUri.split("/").pop();
+    console.log(fileName)
+    let match = /\.(\w+)$/.exec(fileName);
+    let type = match ? `image/${match[1]}` : `image`;
+    console.log(type)
+
+    const formData = new FormData();
+    formData.append('image', { uri: localUri, name: fileName, type })
+
+        await api.post("/user/images", formData, {
+            headers: {
+              "Content-type": "multipart/form-data",
+            },
+          });
+
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
   useEffect(() => {
     loadUserInfo();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert(
+            "Desculpa, para o sistema funcionar é necessário a permissão da câmera."
+          );
+        }
+      }
+    })();
   }, []);
 
   return (
     <>
       <Container>
-        <ImageProfile />
+        <ImageProfile
+          source={userInfo.profileImage ? {uri : userInfo.profileImage } : imageProfile}
+        />
         <ButtonProfile>
-          <TextButton> Editar Imagem </TextButton>
+          <TextButton onPress={pickImage}> Editar Imagem </TextButton>
         </ButtonProfile>
         <Content>
           <Label> Nome </Label>
           <TextInputEditProfile
-            keyboardType="text"
+            keyboardType="default"
             autoCapitalize="none"
             returnKeyType="next"
             maxLength={100}

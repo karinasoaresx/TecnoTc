@@ -9,7 +9,7 @@ export const Container = styled.View`
     justify-content: center;
 `;
 
-export const ImageProfile = styled.View`
+export const ImageProfile = styled.Image`
     width: 150px;
     height: 150px;
     border-radius: 75px;

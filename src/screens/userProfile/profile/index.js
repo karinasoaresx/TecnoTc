@@ -137,7 +137,8 @@ function Profile({ navigation }) {
               <IconSignOut name="sign-out" onPress={handleSignOut} />
             </TouchableOpacity>
           </PerfilLogout>
-          <ImageProfile source={userInfo.profileImage ? userInfo.profileImage : imageProfile}/>
+         { console.log(userInfo.profileImage)}
+          <ImageProfile source={userInfo.profileImage ? {uri : userInfo.profileImage } : imageProfile}/>
           <NameUser> {userInfo.name} </NameUser>
           <EmailUser> {userInfo.email} </EmailUser>
           <ButtonProfile>

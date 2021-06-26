@@ -38,7 +38,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={"EditProfile"} screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName={isSigned ? "Profile" : "Login"} screenOptions={{ headerShown: false }}>
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Login" component={Login} />

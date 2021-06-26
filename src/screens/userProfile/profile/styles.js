@@ -48,7 +48,7 @@ export const IconSignOut = styled(Icon)`
 `;
 
 
-export const ImageProfile = styled.View`
+export const ImageProfile = styled.Image`
     width: 120px;
     height: 120px;
     border-radius: 60px;

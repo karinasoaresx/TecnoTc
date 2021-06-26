@@ -5,6 +5,7 @@ const USER_KEY = "@user";
 
 export const signIn = (user) => {
 	AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
+	console.log(user);
 
 	//setando o token como padrão em todas as requisições
 	api.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
@@ -17,9 +18,9 @@ export const signOut = () => {
 };
 
 export const getUser = async () => {
-	const { student } = JSON.parse(await AsyncStorage.getItem(USER_KEY));
+	const { user } = JSON.parse(await AsyncStorage.getItem(USER_KEY));
 
-	return student;
+	return user;
 };
 
 export const setUser = async (student) => {

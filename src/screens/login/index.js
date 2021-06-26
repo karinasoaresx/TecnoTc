@@ -37,8 +37,6 @@ function Login({ navigation }) {
 
             signIn(response.data);
 
-            console.log("Login realizado com sucesso");
-
             navigation.navigate("Profile")
 
         } catch (error) {

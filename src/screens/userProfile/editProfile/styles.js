@@ -4,10 +4,9 @@ import { TextDefault } from "../../../styles/stylesGlobal";
 
 export const Container = styled.View`
     background-color: ${colors.white};
-    height: 600px;
+    height: 100%;
     align-items: center;
     justify-content: center;
-    margin-top: 150px;
 `;
 
 export const ImageProfile = styled.View`

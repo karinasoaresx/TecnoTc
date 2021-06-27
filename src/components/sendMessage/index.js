@@ -4,13 +4,17 @@ import { Container, TextInputChat, ButtonSend } from "./styles";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-function SendMessage() {
+function SendMessage({msg, message, m}) {
     return(
         <Container>
             <TextInputChat
                 placeholder="Digite aqui sua mensagem"
+                onChange={(e) => {
+                    message(e.target.value)
+                }}
+                value={m}
                 placeholderTextColor={colors.white} />
-            <ButtonSend>
+            <ButtonSend onClick={msg}>
                 <Icon name="paper-plane" size={30} color="#ffffff" />
             </ButtonSend>
         </Container>

@@ -10,6 +10,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from "@react-navigation/stack";
 import OrderConfirmEmail from './src/screens/orderConfirmEmail';
+import Chat from './src/screens/chat'
 import ForgotPassword from './src/screens/forgotPassword';
 import NewPassword from './src/screens/newPassword';
 import { isSignedIn } from "./src/services/security";
@@ -46,6 +47,7 @@ export default function App() {
         <Stack.Screen name="OrderConfirmEmail" component={OrderConfirmEmail} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="NewPassword" component={NewPassword} />
+        <Stack.Screen name="Chat" component={Chat} />
       </Stack.Navigator>
     </NavigationContainer>
   )

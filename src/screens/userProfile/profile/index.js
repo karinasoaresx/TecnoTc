@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import imageProfile from '../../../../assets/foto_perfil.png'
+import imageProfile from "../../../../assets/foto_perfil.png";
 import colors from "../../../styles/colors";
 import {
   ViewGroup,
@@ -28,7 +28,7 @@ import {
   Contact,
   SettingsContact,
   LastMessage,
-  ContainerContact
+  ContainerContact,
 } from "./styles";
 import { FlatList, StatusBar, TouchableOpacity } from "react-native";
 import imgBackground from "../../../../assets/backgroundGradiente.png";
@@ -38,7 +38,11 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { getUser, signOut } from "../../../services/security";
 import { api } from "../../../services/api";
 
-function GroupsScreen({ group }) {
+function GroupsScreen({ group, chat }) {
+
+  // const handleChat = () => {
+  //   chat()
+  // }
   return (
     <>
       <ViewGroup>
@@ -46,11 +50,18 @@ function GroupsScreen({ group }) {
           data={group}
           keyExtractor={(groups) => String(groups.id)}
           renderItem={({ item: groups }) => (
-            <Group>
-              <SettingsGroup source={settings} />
-              <ImageGroup />
-              <TitleGroup> {groups.name} </TitleGroup>
-            </Group>
+              <Group>
+                <SettingsGroup source={settings} />
+                <ImageGroup />
+                <TouchableOpacity>
+
+                <TitleGroup onPress={() => chat.navigate('Chat', {
+                  groupId: groups.id,
+                  chatId : groups.Chat.id
+                })}> {groups.name} </TitleGroup>
+                </TouchableOpacity>
+
+              </Group>
           )}
         />
       </ViewGroup>
@@ -59,29 +70,29 @@ function GroupsScreen({ group }) {
 }
 
 function NoteScreen({ anotation }) {
-
   return (
     <>
       <ViewNote>
-        <FlatList data={anotation}
-        keyExtractor={(annotation) => String(annotation.id)}
-        renderItem={({ item: annotation }) =>(
-          <Note key={annotation.id}>
-          <SettingsNote source={settings} />
-          <TitleNote> {annotation.title} </TitleNote>
-        </Note>
-        )}/>
+        <FlatList
+          data={anotation}
+          keyExtractor={(annotation) => String(annotation.id)}
+          renderItem={({ item: annotation }) => (
+            <Note key={annotation.id}>
+              <SettingsNote source={settings} />
+              <TitleNote> {annotation.title} </TitleNote>
+            </Note>
+          )}
+        />
       </ViewNote>
     </>
   );
 }
 
-function ContactScreen({  }) {
-
+function ContactScreen({}) {
   return (
     <>
       <ViewContact>
-          <Contact>
+        <Contact>
           <ImageContact />
           <ContainerContact>
             <TitleContact> nome contato </TitleContact>
@@ -102,9 +113,7 @@ function Profile({ navigation }) {
   const [isLoadingFeed, setIsLoadingFeed] = useState(false);
   const [groups, setGroups] = useState([]);
   const [annotations, setAnnotations] = useState([]);
-  const [userInfo, setUserInfo] = useState([])
-
- 
+  const [userInfo, setUserInfo] = useState([]);
 
   const handleSignOut = () => {
     signOut();
@@ -112,15 +121,18 @@ function Profile({ navigation }) {
   };
 
   const handleEditProfile = async () => {
-    navigation.navigate("EditProfile")
+    navigation.navigate("EditProfile");
   };
+
+  const handleGoChat = async () => {
+    navigation.navigate("Chat");
+ };
 
   const loadGroups = async () => {
     const response = await api.get("/group");
 
     setGroups(response.data);
 
-    // console.log(response.data)
   };
 
   const loadAnnotations = async () => {
@@ -129,16 +141,15 @@ function Profile({ navigation }) {
   };
 
   const loadUserInfo = async () => {
-
     const user = await getUser();
 
     try {
-      const response = await api.get(`/${user.userRole + "s"}`)
-      setUserInfo(response.data)  
+      const response = await api.get(`/${user.userRole + "s"}`);
+      setUserInfo(response.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     if (groups.length === 0) {
@@ -162,13 +173,22 @@ function Profile({ navigation }) {
               <IconSignOut name="sign-out" onPress={handleSignOut} />
             </TouchableOpacity>
           </PerfilLogout>
-         { console.log(userInfo.profileImage)}
-          <ImageProfile source={userInfo.profileImage ? {uri : userInfo.profileImage } : imageProfile}/>
+          {console.log(userInfo.profileImage)}
+          <ImageProfile
+            source={
+              userInfo.profileImage
+                ? { uri: userInfo.profileImage }
+                : imageProfile
+            }
+          />
           <NameUser> {userInfo.name} </NameUser>
           <EmailUser> {userInfo.email} </EmailUser>
           <ButtonProfile>
             <TouchableOpacity>
-            <TextButton onPress={handleEditProfile}> Editar Perfil </TextButton>
+              <TextButton onPress={handleEditProfile}>
+                {" "}
+                Editar Perfil{" "}
+              </TextButton>
             </TouchableOpacity>
           </ButtonProfile>
         </InfoUser>
@@ -184,16 +204,13 @@ function Profile({ navigation }) {
       >
         <Tab.Screen
           name="Grupos"
-          children={() => <GroupsScreen group={groups} />}
+          children={() => <GroupsScreen group={groups} chat={navigation} />}
         />
         <Tab.Screen
           name="Anotações"
           children={() => <NoteScreen anotation={annotations} />}
         />
-        <Tab.Screen
-          name="Contatos"
-          children={() => <ContactScreen/>}
-        />
+        <Tab.Screen name="Contatos" children={() => <ContactScreen />} />
       </Tab.Navigator>
     </>
   );

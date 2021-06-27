@@ -1,12 +1,12 @@
 import React from "react";
 import { Container, NameContato, Mensagem, Date } from "./styles";
 
-function TemplateChatRight() {
+function TemplateChatRight({msg}) {
     return(
         <Container>
-            <NameContato>leticia</NameContato>
-            <Mensagem>teste teste teste teste teste teste teste teste teste teste teste testeteste teste teste teste teste teste</Mensagem>
-            <Date>23/06 às 11:11</Date>
+            <NameContato>{msg.author ? msg.author : msg.User?.Student.name || msg.User?.Teacher.name}</NameContato>
+            <Mensagem>{msg.message}</Mensagem>
+            <Date>{msg.createdAt}</Date>
         </Container>
     )
 }

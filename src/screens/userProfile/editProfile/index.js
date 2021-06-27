@@ -47,7 +47,6 @@ function EditProfile() {
 
   const handleSubmit = async (e) => {
     const user = await getUser();
-    console.log(user.userRole);
     try {
       const response = await api.put(`${user.userRole + "s"}`, editProfile);
 
@@ -78,14 +77,11 @@ function EditProfile() {
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(result)
 
     let localUri = result.uri;
     let fileName = localUri.split("/").pop();
-    console.log(fileName)
     let match = /\.(\w+)$/.exec(fileName);
     let type = match ? `image/${match[1]}` : `image`;
-    console.log(type)
 
     const formData = new FormData();
     formData.append('image', { uri: localUri, name: fileName, type })

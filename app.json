@@ -5,11 +5,11 @@
     "slug": "Tecnotc-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/iconeApp.png",
     "splash": {
-      "image": "./assets/adaptive-icon.png",
+      "image": "./assets/imageSplash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#1f1456"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

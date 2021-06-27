@@ -86,6 +86,7 @@ export const TextInputLogup = styled.TextInput`
     padding-left: 20px;
     border-radius: 15px;
     border: 1px solid ${colors.lightGrey};
+    color: ${colors.white};
 `;
 
 export const EnterAccount = styled.Text`

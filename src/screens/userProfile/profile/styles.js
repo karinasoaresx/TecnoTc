@@ -121,6 +121,7 @@ export const ImageGroup = styled.View`
 export const TitleGroup = styled.Text`
     color: ${colors.black};
     font-size: 20px;
+    text-align: center;
     margin-top: 18px;
 `;
 
@@ -161,4 +162,54 @@ export const TitleNote = styled.Text`
 `;
 
 //styles notes
+
+//styles contacts
+
+export const ViewContact = styled.View`
+    height: 100%;
+    width: 100%;
+    background-color: #f3f2f1;
+`;
+
+export const Contact = styled.View`
+    background-color: ${colors.white};
+    width: 100%;
+    height: 70px;
+    border-bottom-color: ${colors.darkPurple};
+    border-bottom-width: 1px;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const SettingsContact = styled.Image`
+    width: 10px;
+    height: 20px;
+    margin-left: 140px;
+`;
+
+export const ImageContact = styled.View`
+    height: 50px;
+    width: 50px;
+    background-color: ${colors.lightGreen};
+    border-radius: 25px;
+    border: 1px solid ${colors.lightGrey};
+`;
+
+export const ContainerContact = styled.View`
+    justify-content: center;
+`;
+
+export const TitleContact = styled.Text`
+    color: ${colors.black};
+    font-size: 24px;
+`;
+
+export const LastMessage = styled.Text`
+    color: ${colors.black};
+    font-size: 18px;
+`;
+
+//styles contacts
 

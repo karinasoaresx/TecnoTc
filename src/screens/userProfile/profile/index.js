@@ -22,6 +22,13 @@ import {
   SettingsNote,
   PerfilLogout,
   IconSignOut,
+  ViewContact,
+  TitleContact,
+  ImageContact,
+  Contact,
+  SettingsContact,
+  LastMessage,
+  ContainerContact
 } from "./styles";
 import { FlatList, StatusBar, TouchableOpacity } from "react-native";
 import imgBackground from "../../../../assets/backgroundGradiente.png";
@@ -65,6 +72,24 @@ function NoteScreen({ anotation }) {
         </Note>
         )}/>
       </ViewNote>
+    </>
+  );
+}
+
+function ContactScreen({  }) {
+
+  return (
+    <>
+      <ViewContact>
+          <Contact>
+          <ImageContact />
+          <ContainerContact>
+            <TitleContact> nome contato </TitleContact>
+            <LastMessage> última mensagem </LastMessage>
+          </ContainerContact>
+          <SettingsContact source={settings} />
+        </Contact>
+      </ViewContact>
     </>
   );
 }
@@ -164,6 +189,10 @@ function Profile({ navigation }) {
         <Tab.Screen
           name="Anotações"
           children={() => <NoteScreen anotation={annotations} />}
+        />
+        <Tab.Screen
+          name="Contatos"
+          children={() => <ContactScreen/>}
         />
       </Tab.Navigator>
     </>

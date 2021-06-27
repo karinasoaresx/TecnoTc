@@ -19,7 +19,7 @@ import { useState } from "react";
 import io from "socket.io-client";
 import { getUser } from "../../services/security";
 
-const CONNECTION_PORT = "http://192.168.0.10:3002/";
+const CONNECTION_PORT = "https://tecno-tcc-chat.herokuapp.com/";
 let socket;
 function Chat(group) {
   StatusBar.setBackgroundColor(colors.darkPurple);

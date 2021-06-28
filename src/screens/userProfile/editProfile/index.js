@@ -120,7 +120,7 @@ function EditProfile() {
     <>
       <Container>
         <ImageProfile
-          source={userInfo.profileImage ? {uri : userInfo.profileImage } : imageProfile}
+          source={userInfo.profileImage ? {uri : userInfo.profileImage } : ProfileImage }
         />
         <ButtonProfile>
           <TextButton onPress={pickImage}> Editar Imagem </TextButton>

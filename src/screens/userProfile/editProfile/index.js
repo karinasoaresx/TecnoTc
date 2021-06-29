@@ -114,10 +114,6 @@ function EditProfile() {
     loadUserInfo(); 
   }, []);
 
-  const handleRefresh = () => {
-    setUserInfo([])
-  }
-
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {

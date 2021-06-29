@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Tecnotc-app",
-    "scheme" : "appname",
+    "scheme": "appname",
     "slug": "Tecnotc-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -28,7 +28,7 @@
       "intentFilters": [
         {
           "action": "VIEW",
-          "autoVerify" : true,
+          "autoVerify": true,
           "data": [
             {
               "scheme": "http",
@@ -41,7 +41,8 @@
             "DEFAULT"
           ]
         }
-      ]
+      ],
+      "package": "app.tecnotcc.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

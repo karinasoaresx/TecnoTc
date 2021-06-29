@@ -7,6 +7,7 @@ import {
   TextInputEditProfile,
   ButtonProfile,
   TextButton,
+  LoadingImage
 } from "./styles";
 import ProfileImage from "../../../../assets/foto_perfil.png";
 import ButtonPurple from "../../../components/buttonPurple";
@@ -21,6 +22,7 @@ import * as ImagePicker from "expo-image-picker";
 function EditProfile() {
   const [userInfo, setUserInfo] = useState([]);
   const [image, setImage] = useState(null);
+  const [isLoadingImage, setIsLoadingImage] = useState(false);
 
   const [editProfile, setEditProfile] = useState({
     name: "",
@@ -83,24 +85,38 @@ function EditProfile() {
     let match = /\.(\w+)$/.exec(fileName);
     let type = match ? `image/${match[1]}` : `image`;
 
+    if(isLoadingImage) return;
+
     const formData = new FormData();
-    formData.append('image', { uri: localUri, name: fileName, type })
+    formData.append("image", { uri: localUri, name: fileName, type });
 
-        await api.post("/user/images", formData, {
-            headers: {
-              "Content-type": "multipart/form-data",
-            },
-          });
+    setIsLoadingImage(true)
 
+    const newImage = await api.post("/user/images", formData, {
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+    });
+
+    setUserInfo(userInfo.profileImage !== newImage.data.image ? userInfo.profileImage = newImage.data.image : userInfo.profileImage)
+    
+    setUserInfo(userInfo)
+
+    setIsLoadingImage(false)
 
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
 
+
   useEffect(() => {
-    loadUserInfo();
+    loadUserInfo(); 
   }, []);
+
+  const handleRefresh = () => {
+    setUserInfo([])
+  }
 
   useEffect(() => {
     (async () => {
@@ -120,7 +136,11 @@ function EditProfile() {
     <>
       <Container>
         <ImageProfile
-          source={userInfo.profileImage ? {uri : userInfo.profileImage } : imageProfile}
+          source={
+            userInfo.profileImage
+              ? { uri: userInfo.profileImage }
+              : ImageProfile
+          }
         />
         <ButtonProfile>
           <TextButton onPress={pickImage}> Editar Imagem </TextButton>
@@ -175,6 +195,7 @@ function EditProfile() {
 
           <ButtonPurple text="Salvar dados" onPress={handleSubmit} />
         </Content>
+        {isLoadingImage && <LoadingImage size="large" color={colors.primary} />}
       </Container>
     </>
   );

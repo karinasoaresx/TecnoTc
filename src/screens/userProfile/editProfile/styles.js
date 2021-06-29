@@ -59,3 +59,8 @@ export const TextInputEditProfile = styled.TextInput`
     border-radius: 15px;
     border: 1px solid ${colors.darkPurple};
 `;
+
+export const LoadingImage = styled.ActivityIndicator`
+	position: absolute;
+	bottom: 4px;
+`;
